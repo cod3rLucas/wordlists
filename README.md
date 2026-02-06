@@ -17,7 +17,14 @@ dirsearch -u 'https://target.com' -w /root/fuzzing_wordlist.txt -i 200 --full-ur
 # Conect to VPS via Reverse SSH
 ssh -R 8080:127.0.0.1:8080 root@VPS_IP -f -N
 
-# Send it to burp
-ffuf -c -u http://target.com/FUZZ -t 3 -p 1.0-1.5 -w wordlist.txt -ac -replay-proxy http://127.0.0.1:8080
+# Send it to burp (burp bounty pro passive scan actived - only in scope targets)
+ffuf -c -u 'http://target-in-scope.com/FUZZ' -t 3 -p 1.0-1.5 -w /root/fuzzing_wordlist.txt -ac -mc 200 -replay-proxy http://127.0.0.1:8080
 ```
 
+
+**Extra: Vhost Enumeration**
+
+```
+# Gobuster vhost
+gobuster vhost -u http://target.com -w /root/httparchive_subdomains_2026_01_27.txt
+```
