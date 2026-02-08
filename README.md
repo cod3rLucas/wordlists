@@ -28,3 +28,8 @@ ffuf -c -u 'http://target.com/FUZZ' -t 3 -p 1.0-1.5 -w /root/fuzzing_wordlist.tx
 # Gobuster vhost
 gobuster vhost -u http://target.com -w /root/httparchive_subdomains_2026_01_27.txt
 ```
+
+**LFI TIP:**
+```
+echo 'https://example.com/index.php?page=' | httpx -paths /root/wordlists/lfi.txt -mc 200 -mr 'root:x:0:0:'
+```
